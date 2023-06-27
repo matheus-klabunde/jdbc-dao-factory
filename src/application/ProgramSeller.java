@@ -5,17 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.dao.DaoFactory;
-import model.dao.GenericsDao;
+import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-public class Program {
+public class ProgramSeller {
 
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
 		
-		GenericsDao<Seller, Integer> sellerDao = DaoFactory.createSellerDao();
+		SellerDao<Seller, Integer> sellerDao = DaoFactory.createSellerDao();
 		
 		System.out.println("=== TESTE 1: seller findById ===");
 		Seller seller = sellerDao.findById(3);

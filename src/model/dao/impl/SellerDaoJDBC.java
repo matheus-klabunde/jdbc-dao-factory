@@ -13,11 +13,11 @@ import java.util.Map;
 
 import db.DB;
 import db.DbException;
-import model.dao.GenericsDao;
+import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-public class SellerDaoJDBC implements GenericsDao<Seller, Integer>{
+public class SellerDaoJDBC implements SellerDao<Seller, Integer>{
 	
 	private Connection conn;
 	

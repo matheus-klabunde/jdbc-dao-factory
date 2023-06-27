@@ -2,8 +2,6 @@ package model.dao;
 
 import java.util.List;
 
-import model.entities.Department;
-
 public interface GenericsDao<T, G> {
 
 	void insert(T obj);
@@ -11,5 +9,4 @@ public interface GenericsDao<T, G> {
 	void delete(G id);
 	T findById(G id);
 	List<T> findAll();
-	List<T> findByDepartment(Department department);
 }
