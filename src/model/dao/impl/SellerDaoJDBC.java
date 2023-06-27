@@ -66,7 +66,29 @@ public class SellerDaoJDBC implements GenericsDao<Seller, Integer>{
 
 	@Override
 	public void update(Seller seller) {
-		// TODO Auto-generated method stub
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"UPDATE seller "
+					+ "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+					+ "WHERE Id = ?",
+					Statement.RETURN_GENERATED_KEYS);
+			
+			st.setString(1, seller.getName());
+			st.setString(2, seller.getEmail());
+			st.setDate(3, new Date(seller.getBirthDate().getTime()));
+			st.setDouble(4, seller.getBaseSalary());
+			st.setInt(5, seller.getDepartment().getId());
+			st.setInt(6, seller.getId());
+			
+			st.executeUpdate();
+			
+		} catch(SQLException e) {
+			throw new DbException(e.getMessage());
+			
+		} finally {
+			DB.closeStatement(st);
+		}
 		
 	}
 
@@ -81,7 +103,8 @@ public class SellerDaoJDBC implements GenericsDao<Seller, Integer>{
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT seller.*,department.Name as DepName "
+			st = conn.prepareStatement(
+					"SELECT seller.*,department.Name as DepName "
 					+ "FROM seller INNER JOIN department "
 					+ "ON seller.DepartmentId = department.Id "
 					+ "WHERE seller.Id = ?");
@@ -128,7 +151,8 @@ public class SellerDaoJDBC implements GenericsDao<Seller, Integer>{
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT seller.*,department.Name as DepName "
+			st = conn.prepareStatement(
+					"SELECT seller.*,department.Name as DepName "
 					+ "FROM seller INNER JOIN department "
 					+ "ON seller.DepartmentId = department.Id "
 					+ "ORDER BY Name");
@@ -165,7 +189,8 @@ public class SellerDaoJDBC implements GenericsDao<Seller, Integer>{
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		try {
-			st = conn.prepareStatement("SELECT seller.*,department.Name as DepName "
+			st = conn.prepareStatement(
+					"SELECT seller.*,department.Name as DepName "
 					+ "FROM seller INNER JOIN department "
 					+ "ON seller.DepartmentId = department.Id "
 					+ "WHERE DepartmentId = ? "
